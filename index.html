@@ -816,87 +816,99 @@
                         </div>
                     </div>
                     
-                    <div class="cover-letter-section">
-                        <h4>AI Cover Letter Generator</h4>
-                        <div class="cover-letter-form">
-                            <input type="text" placeholder="Company Name" class="form-input">
-                            <input type="text" placeholder="Position Title" class="form-input">
-                            <textarea placeholder="Job Description (paste here)" class="form-textarea"></textarea>
-                            <button class="btn-primary" onclick="generateCoverLetter()">
-                                <i class="fas fa-magic"></i> Generate Cover Letter
-                            </button>
-                        </div>
-                    </div>
+
                 </div>
 
                 <!-- Job Discovery Tab -->
                 <div id="jobsTab" class="tab-content">
                     <div class="tab-header">
                         <h3>Job Discovery Engine</h3>
-                        <p>Find your perfect next role with AI-powered matching</p>
+                        <p>Find your perfect next role with AI-powered matching and intelligent recommendations</p>
                     </div>
                     
                     <div class="job-search">
                         <div class="search-filters">
                             <div class="filter-row">
                                 <input type="text" placeholder="Job Title, Skills, or Company" class="search-input">
-                                <input type="text" placeholder="Location" class="search-input">
+                                <input type="text" placeholder="Location or Remote" class="search-input">
                                 <select class="filter-select">
+                                    <option>Work Type</option>
                                     <option>Remote</option>
                                     <option>On-site</option>
                                     <option>Hybrid</option>
                                 </select>
                                 <button class="btn-primary">
-                                    <i class="fas fa-search"></i> Search
+                                    <i class="fas fa-search"></i> Search Jobs
                                 </button>
                             </div>
                             
                             <div class="advanced-filters">
                                 <select class="filter-select">
                                     <option>Experience Level</option>
-                                    <option>Entry Level</option>
-                                    <option>Mid Level</option>
-                                    <option>Senior Level</option>
-                                    <option>Executive</option>
+                                    <option>Entry Level (0-2 years)</option>
+                                    <option>Mid Level (3-5 years)</option>
+                                    <option>Senior Level (6-10 years)</option>
+                                    <option>Executive (10+ years)</option>
                                 </select>
                                 <select class="filter-select">
                                     <option>Salary Range</option>
                                     <option>$50k - $75k</option>
                                     <option>$75k - $100k</option>
                                     <option>$100k - $150k</option>
-                                    <option>$150k+</option>
+                                    <option>$150k - $200k</option>
+                                    <option>$200k+</option>
                                 </select>
                                 <select class="filter-select">
                                     <option>Company Size</option>
-                                    <option>Startup (1-50)</option>
-                                    <option>Mid-size (51-500)</option>
-                                    <option>Large (500+)</option>
+                                    <option>Startup (1-50 employees)</option>
+                                    <option>Small (51-200 employees)</option>
+                                    <option>Medium (201-1000 employees)</option>
+                                    <option>Large (1000+ employees)</option>
                                 </select>
+                                <select class="filter-select">
+                                    <option>Industry</option>
+                                    <option>Technology</option>
+                                    <option>Healthcare</option>
+                                    <option>Finance</option>
+                                    <option>Education</option>
+                                    <option>Manufacturing</option>
+                                    <option>Retail</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="job-alerts" style="background: #f8fafc; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <span><i class="fas fa-bell"></i> Get notified of new matching jobs</span>
+                                <button class="btn-secondary">Create Job Alert</button>
                             </div>
                         </div>
                         
                         <div class="job-results">
                             <div class="results-header">
-                                <h4>142 Smart Matches Found</h4>
+                                <h4>247 Smart Matches Found</h4>
                                 <div class="sort-options">
                                     <select>
                                         <option>Best Match</option>
                                         <option>Most Recent</option>
                                         <option>Salary: High to Low</option>
+                                        <option>Company Rating</option>
+                                        <option>Distance</option>
                                     </select>
                                 </div>
                             </div>
                             
                             <div class="job-list">
                                 <div class="job-card featured">
+                                    <div class="job-badge" style="background: #667eea; color: white; position: absolute; top: 1rem; right: 1rem; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">Featured</div>
                                     <div class="job-header">
                                         <div class="company-logo">
-                                            <img src="https://via.placeholder.com/50" alt="Company">
+                                            <img src="https://via.placeholder.com/50" alt="TechCorp Inc.">
                                         </div>
                                         <div class="job-info">
-                                            <h4>Senior Full Stack Engineer</h4>
+                                            <h4>Senior Software Engineer</h4>
                                             <p>TechCorp Inc. • San Francisco, CA</p>
-                                            <span class="job-type">Full-time • Remote</span>
+                                            <span class="job-type">Full-time • Remote Available</span>
                                         </div>
                                         <div class="match-score">
                                             <span class="score">95% Match</span>
@@ -904,19 +916,21 @@
                                     </div>
                                     
                                     <div class="job-details">
-                                        <p>$120k - $160k • Posted 2 days ago</p>
+                                        <p>$140k - $180k • Posted 1 day ago • 23 applicants</p>
                                         <div class="job-tags">
                                             <span class="tag">React</span>
                                             <span class="tag">Node.js</span>
                                             <span class="tag">AWS</span>
-                                            <span class="tag">Python</span>
+                                            <span class="tag">TypeScript</span>
+                                            <span class="tag">Kubernetes</span>
                                         </div>
+                                        <p style="margin-top: 0.5rem; color: #4a5568; font-size: 0.9rem;">Build scalable microservices and lead a team of 5 engineers. Equity package included. Excellent benefits and flexible work arrangements.</p>
                                     </div>
                                     
                                     <div class="job-actions">
                                         <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
                                         <button class="btn-secondary" onclick="saveJob()">
-                                            <i class="far fa-bookmark"></i>
+                                            <i class="far fa-bookmark"></i> Save
                                         </button>
                                         <button class="btn-secondary" onclick="findReferral()">
                                             <i class="fas fa-user-friends"></i> Find Referral
@@ -927,12 +941,49 @@
                                 <div class="job-card">
                                     <div class="job-header">
                                         <div class="company-logo">
-                                            <img src="https://via.placeholder.com/50" alt="Company">
+                                            <img src="https://via.placeholder.com/50" alt="Microsoft">
                                         </div>
                                         <div class="job-info">
-                                            <h4>Software Engineer II</h4>
-                                            <p>InnovateTech • Austin, TX</p>
+                                            <h4>Product Manager II</h4>
+                                            <p>Microsoft • Seattle, WA</p>
                                             <span class="job-type">Full-time • Hybrid</span>
+                                        </div>
+                                        <div class="match-score">
+                                            <span class="score">91% Match</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-details">
+                                        <p>$130k - $170k • Posted 3 days ago • 45 applicants</p>
+                                        <div class="job-tags">
+                                            <span class="tag">Product Strategy</span>
+                                            <span class="tag">Agile</span>
+                                            <span class="tag">Data Analysis</span>
+                                            <span class="tag">Leadership</span>
+                                        </div>
+                                        <p style="margin-top: 0.5rem; color: #4a5568; font-size: 0.9rem;">Drive product vision for Azure services. Work with cross-functional teams to deliver world-class cloud solutions.</p>
+                                    </div>
+                                    
+                                    <div class="job-actions">
+                                        <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
+                                        <button class="btn-secondary" onclick="saveJob()">
+                                            <i class="far fa-bookmark"></i> Save
+                                        </button>
+                                        <button class="btn-secondary" onclick="findReferral()">
+                                            <i class="fas fa-user-friends"></i> Find Referral
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="job-card">
+                                    <div class="job-header">
+                                        <div class="company-logo">
+                                            <img src="https://via.placeholder.com/50" alt="Airbnb">
+                                        </div>
+                                        <div class="job-info">
+                                            <h4>Staff Frontend Engineer</h4>
+                                            <p>Airbnb • San Francisco, CA</p>
+                                            <span class="job-type">Full-time • Remote OK</span>
                                         </div>
                                         <div class="match-score">
                                             <span class="score">88% Match</span>
@@ -940,18 +991,20 @@
                                     </div>
                                     
                                     <div class="job-details">
-                                        <p>$100k - $130k • Posted 5 days ago</p>
+                                        <p>$160k - $200k • Posted 1 week ago • 67 applicants</p>
                                         <div class="job-tags">
-                                            <span class="tag">JavaScript</span>
                                             <span class="tag">React</span>
-                                            <span class="tag">MongoDB</span>
+                                            <span class="tag">GraphQL</span>
+                                            <span class="tag">JavaScript</span>
+                                            <span class="tag">Performance</span>
                                         </div>
+                                        <p style="margin-top: 0.5rem; color: #4a5568; font-size: 0.9rem;">Lead frontend architecture for guest and host experiences. Mentor engineers and drive technical excellence.</p>
                                     </div>
                                     
                                     <div class="job-actions">
                                         <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
                                         <button class="btn-secondary" onclick="saveJob()">
-                                            <i class="far fa-bookmark"></i>
+                                            <i class="far fa-bookmark"></i> Save
                                         </button>
                                         <button class="btn-secondary" onclick="findReferral()">
                                             <i class="fas fa-user-friends"></i> Find Referral
@@ -962,31 +1015,33 @@
                                 <div class="job-card">
                                     <div class="job-header">
                                         <div class="company-logo">
-                                            <img src="https://via.placeholder.com/50" alt="Company">
+                                            <img src="https://via.placeholder.com/50" alt="Stripe">
                                         </div>
                                         <div class="job-info">
-                                            <h4>Lead Developer</h4>
-                                            <p>StartupXYZ • New York, NY</p>
-                                            <span class="job-type">Full-time • On-site</span>
+                                            <h4>DevOps Engineer</h4>
+                                            <p>Stripe • Remote</p>
+                                            <span class="job-type">Full-time • Fully Remote</span>
                                         </div>
                                         <div class="match-score">
-                                            <span class="score">82% Match</span>
+                                            <span class="score">85% Match</span>
                                         </div>
                                     </div>
                                     
                                     <div class="job-details">
-                                        <p>$110k - $140k • Posted 1 week ago</p>
+                                        <p>$120k - $160k • Posted 4 days ago • 31 applicants</p>
                                         <div class="job-tags">
-                                            <span class="tag">Vue.js</span>
-                                            <span class="tag">Python</span>
+                                            <span class="tag">AWS</span>
+                                            <span class="tag">Kubernetes</span>
                                             <span class="tag">Docker</span>
+                                            <span class="tag">Terraform</span>
                                         </div>
+                                        <p style="margin-top: 0.5rem; color: #4a5568; font-size: 0.9rem;">Scale payment infrastructure for millions of businesses worldwide. Work on cutting-edge cloud technologies.</p>
                                     </div>
                                     
                                     <div class="job-actions">
                                         <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
                                         <button class="btn-secondary" onclick="saveJob()">
-                                            <i class="far fa-bookmark"></i>
+                                            <i class="far fa-bookmark"></i> Save
                                         </button>
                                         <button class="btn-secondary" onclick="findReferral()">
                                             <i class="fas fa-user-friends"></i> Find Referral
@@ -1003,6 +1058,7 @@
                     <div class="tab-header">
                         <h3>Career Counseling</h3>
                         <p>Get personalized guidance from industry experts</p>
+
                     </div>
                     
                     <div class="counseling-dashboard">
@@ -1121,6 +1177,7 @@
                     <div class="tab-header">
                         <h3>Mock Interviews</h3>
                         <p>Practice with industry experts and get detailed feedback</p>
+
                     </div>
                     
                     <div class="interview-dashboard">
@@ -1244,6 +1301,7 @@
                     <div class="tab-header">
                         <h3>Digital Presence Optimization</h3>
                         <p>Enhance your professional brand across all platforms</p>
+
                     </div>
                     
                     <div class="digital-dashboard">
