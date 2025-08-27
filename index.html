@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Transition Platform - Employee Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="screen active">
+        <div class="login-container">
+            <div class="login-header">
+                <h1>Welcome to Your Career Transition</h1>
+                <p>Get back on track with AI-powered tools and expert guidance</p>
+            </div>
+            
+            <div class="login-options">
+                <button class="oauth-btn gmail" onclick="login('gmail')">
+                    <i class="fab fa-google"></i>
+                    Continue with Gmail
+                </button>
+                <button class="oauth-btn linkedin" onclick="login('linkedin')">
+                    <i class="fab fa-linkedin"></i>
+                    Continue with LinkedIn
+                </button>
+                <button class="oauth-btn facebook" onclick="login('facebook')">
+                    <i class="fab fa-facebook"></i>
+                    Continue with Facebook
+                </button>
+                <button class="oauth-btn outlook" onclick="login('outlook')">
+                    <i class="fab fa-microsoft"></i>
+                    Continue with Outlook
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Setup Screen -->
+    <div id="profileSetup" class="screen">
+        <div class="container">
+            <div class="setup-header">
+                <h2>Let's Set Up Your Profile</h2>
+                <p>We'll help you import your professional information to get started quickly</p>
+            </div>
+            
+            <div class="import-options">
+                <div class="import-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>Import from LinkedIn</h3>
+                    <p>Automatically sync your professional experience and skills</p>
+                    <button class="btn-primary" onclick="importLinkedIn()">Import LinkedIn Profile</button>
+                </div>
+                
+                <div class="import-card">
+                    <i class="fas fa-file-upload"></i>
+                    <h3>Upload Resume</h3>
+                    <p>Upload your existing resume to pre-fill your profile</p>
+                    <input type="file" id="resumeUpload" accept=".pdf,.doc,.docx" style="display: none;">
+                    <button class="btn-secondary" onclick="document.getElementById('resumeUpload').click()">Upload Resume</button>
+                </div>
+            </div>
+            
+            <div class="manual-setup">
+                <button class="btn-link" onclick="showDashboard()">Skip and set up manually</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard -->
+    <div id="dashboard" class="screen">
+        <nav class="navbar">
+            <div class="nav-brand">
+                <h2>Career Transition Platform</h2>
+            </div>
+            <div class="nav-user">
+                <span>Welcome, John Doe</span>
+                <img src="https://via.placeholder.com/40" alt="Profile" class="profile-pic">
+            </div>
+        </nav>
+
+        <div class="dashboard-container">
+            <aside class="sidebar">
+                <ul class="nav-menu">
+                    <li><a href="#" onclick="showTab('progress')" class="nav-item active">
+                        <i class="fas fa-chart-line"></i> Progress Dashboard
+                    </a></li>
+                    <li><a href="#" onclick="showTab('resume')" class="nav-item">
+                        <i class="fas fa-file-alt"></i> Resume Builder
+                    </a></li>
+                    <li><a href="#" onclick="showTab('jobs')" class="nav-item">
+                        <i class="fas fa-search"></i> Job Discovery
+                    </a></li>
+                    <li><a href="#" onclick="showTab('counseling')" class="nav-item">
+                        <i class="fas fa-user-friends"></i> Career Counseling
+                    </a></li>
+                    <li><a href="#" onclick="showTab('interviews')" class="nav-item">
+                        <i class="fas fa-video"></i> Mock Interviews
+                    </a></li>
+                    <li><a href="#" onclick="showTab('digital')" class="nav-item">
+                        <i class="fas fa-globe"></i> Digital Presence
+                    </a></li>
+                </ul>
+            </aside>
+
+            <main class="main-content">
+                <!-- Progress Dashboard Tab -->
+                <div id="progressTab" class="tab-content active">
+                    <div class="tab-header">
+                        <h3>Your Transition Progress</h3>
+                        <p>Track your journey to your next career opportunity</p>
+                    </div>
+                    
+                    <div class="progress-overview">
+                        <div class="progress-circle">
+                            <div class="circle-progress" data-progress="65">
+                                <span class="progress-text">65%</span>
+                            </div>
+                            <p>Overall Progress</p>
+                        </div>
+                        
+                        <div class="progress-stats">
+                            <div class="stat-card">
+                                <h4>23</h4>
+                                <p>Jobs Applied</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>5</h4>
+                                <p>Interviews Scheduled</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>3</h4>
+                                <p>Coaching Sessions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone-tracker">
+                        <h4>Milestone Tracker</h4>
+                        <div class="milestones">
+                            <div class="milestone completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Resume Created</span>
+                            </div>
+                            <div class="milestone completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Profile Optimized</span>
+                            </div>
+                            <div class="milestone in-progress">
+                                <i class="fas fa-clock"></i>
+                                <span>Job Applications</span>
+                            </div>
+                            <div class="milestone pending">
+                                <i class="fas fa-circle"></i>
+                                <span>Interview Prep</span>
+                            </div>
+                            <div class="milestone pending">
+                                <i class="fas fa-circle"></i>
+                                <span>Offer Negotiation</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recent-activity">
+                        <h4>Recent Activity</h4>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <i class="fas fa-file-alt"></i>
+                                <div>
+                                    <p><strong>Resume updated</strong> - Software Engineer version</p>
+                                    <span>2 hours ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-briefcase"></i>
+                                <div>
+                                    <p><strong>Applied to Senior Developer</strong> at TechCorp</p>
+                                    <span>1 day ago</span>
+                                </div>
+                            </div>
+                            <div class="activity-item">
+                                <i class="fas fa-video"></i>
+                                <div>
+                                    <p><strong>Mock interview completed</strong> with Sarah Johnson</p>
+                                    <span>3 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resume Builder Tab -->
+                <div id="resumeTab" class="tab-content">
+                    <div class="tab-header">
+                        <h3>AI Resume Builder</h3>
+                        <p>Create ATS-friendly resumes tailored to your target roles</p>
+                    </div>
+                    
+                    <div class="resume-builder">
+                        <div class="resume-sidebar">
+                            <div class="resume-score">
+                                <h4>Resume Score</h4>
+                                <div class="score-circle">
+                                    <span class="score">87/100</span>
+                                </div>
+                                <div class="score-breakdown">
+                                    <div class="score-item">
+                                        <span>ATS Compatibility</span>
+                                        <div class="score-bar">
+                                            <div class="score-fill" style="width: 90%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <span>Content Quality</span>
+                                        <div class="score-bar">
+                                            <div class="score-fill" style="width: 85%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="score-item">
+                                        <span>Keywords Match</span>
+                                        <div class="score-bar">
+                                            <div class="score-fill" style="width: 88%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="resume-templates">
+                                <h4>Templates</h4>
+                                <div class="template-grid">
+                                    <div class="template-card active">
+                                        <img src="https://via.placeholder.com/150x200" alt="Template 1">
+                                        <p>Professional</p>
+                                    </div>
+                                    <div class="template-card">
+                                        <img src="https://via.placeholder.com/150x200" alt="Template 2">
+                                        <p>Modern</p>
+                                    </div>
+                                    <div class="template-card">
+                                        <img src="https://via.placeholder.com/150x200" alt="Template 3">
+                                        <p>Executive</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="resume-editor">
+                            <div class="editor-toolbar">
+                                <button class="btn-primary" onclick="generateResume()">
+                                    <i class="fas fa-magic"></i> AI Generate
+                                </button>
+                                <button class="btn-secondary">
+                                    <i class="fas fa-download"></i> Download PDF
+                                </button>
+                                <select class="role-selector">
+                                    <option>Software Engineer</option>
+                                    <option>Product Manager</option>
+                                    <option>Data Scientist</option>
+                                    <option>Marketing Manager</option>
+                                </select>
+                            </div>
+                            
+                            <div class="resume-preview">
+                                <div class="resume-page">
+                                    <div class="resume-header">
+                                        <h2>John Doe</h2>
+                                        <p>Senior Software Engineer</p>
+                                        <div class="contact-info">
+                                            <span>john.doe@email.com</span>
+                                            <span>+1 (555) 123-4567</span>
+                                            <span>linkedin.com/in/johndoe</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="resume-section">
+                                        <h3>Professional Summary</h3>
+                                        <p>Experienced software engineer with 8+ years of full-stack development expertise...</p>
+                                    </div>
+                                    
+                                    <div class="resume-section">
+                                        <h3>Experience</h3>
+                                        <div class="experience-item">
+                                            <h4>Senior Software Engineer</h4>
+                                            <p>TechCorp Inc. | 2020 - 2024</p>
+                                            <ul>
+                                                <li>Led development of microservices architecture...</li>
+                                                <li>Improved system performance by 40%...</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="cover-letter-section">
+                        <h4>AI Cover Letter Generator</h4>
+                        <div class="cover-letter-form">
+                            <input type="text" placeholder="Company Name" class="form-input">
+                            <input type="text" placeholder="Position Title" class="form-input">
+                            <textarea placeholder="Job Description (paste here)" class="form-textarea"></textarea>
+                            <button class="btn-primary" onclick="generateCoverLetter()">
+                                <i class="fas fa-magic"></i> Generate Cover Letter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Discovery Tab -->
+                <div id="jobsTab" class="tab-content">
+                    <div class="tab-header">
+                        <h3>Job Discovery Engine</h3>
+                        <p>Find your perfect next role with AI-powered matching</p>
+                    </div>
+                    
+                    <div class="job-search">
+                        <div class="search-filters">
+                            <div class="filter-row">
+                                <input type="text" placeholder="Job Title, Skills, or Company" class="search-input">
+                                <input type="text" placeholder="Location" class="search-input">
+                                <select class="filter-select">
+                                    <option>Remote</option>
+                                    <option>On-site</option>
+                                    <option>Hybrid</option>
+                                </select>
+                                <button class="btn-primary">
+                                    <i class="fas fa-search"></i> Search
+                                </button>
+                            </div>
+                            
+                            <div class="advanced-filters">
+                                <select class="filter-select">
+                                    <option>Experience Level</option>
+                                    <option>Entry Level</option>
+                                    <option>Mid Level</option>
+                                    <option>Senior Level</option>
+                                    <option>Executive</option>
+                                </select>
+                                <select class="filter-select">
+                                    <option>Salary Range</option>
+                                    <option>$50k - $75k</option>
+                                    <option>$75k - $100k</option>
+                                    <option>$100k - $150k</option>
+                                    <option>$150k+</option>
+                                </select>
+                                <select class="filter-select">
+                                    <option>Company Size</option>
+                                    <option>Startup (1-50)</option>
+                                    <option>Mid-size (51-500)</option>
+                                    <option>Large (500+)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="job-results">
+                            <div class="results-header">
+                                <h4>142 Smart Matches Found</h4>
+                                <div class="sort-options">
+                                    <select>
+                                        <option>Best Match</option>
+                                        <option>Most Recent</option>
+                                        <option>Salary: High to Low</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="job-list">
+                                <div class="job-card featured">
+                                    <div class="job-header">
+                                        <div class="company-logo">
+                                            <img src="https://via.placeholder.com/50" alt="Company">
+                                        </div>
+                                        <div class="job-info">
+                                            <h4>Senior Full Stack Engineer</h4>
+                                            <p>TechCorp Inc. • San Francisco, CA</p>
+                                            <span class="job-type">Full-time • Remote</span>
+                                        </div>
+                                        <div class="match-score">
+                                            <span class="score">95% Match</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-details">
+                                        <p>$120k - $160k • Posted 2 days ago</p>
+                                        <div class="job-tags">
+                                            <span class="tag">React</span>
+                                            <span class="tag">Node.js</span>
+                                            <span class="tag">AWS</span>
+                                            <span class="tag">Python</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-actions">
+                                        <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
+                                        <button class="btn-secondary" onclick="saveJob()">
+                                            <i class="far fa-bookmark"></i>
+                                        </button>
+                                        <button class="btn-secondary" onclick="findReferral()">
+                                            <i class="fas fa-user-friends"></i> Find Referral
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="job-card">
+                                    <div class="job-header">
+                                        <div class="company-logo">
+                                            <img src="https://via.placeholder.com/50" alt="Company">
+                                        </div>
+                                        <div class="job-info">
+                                            <h4>Software Engineer II</h4>
+                                            <p>InnovateTech • Austin, TX</p>
+                                            <span class="job-type">Full-time • Hybrid</span>
+                                        </div>
+                                        <div class="match-score">
+                                            <span class="score">88% Match</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-details">
+                                        <p>$100k - $130k • Posted 5 days ago</p>
+                                        <div class="job-tags">
+                                            <span class="tag">JavaScript</span>
+                                            <span class="tag">React</span>
+                                            <span class="tag">MongoDB</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-actions">
+                                        <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
+                                        <button class="btn-secondary" onclick="saveJob()">
+                                            <i class="far fa-bookmark"></i>
+                                        </button>
+                                        <button class="btn-secondary" onclick="findReferral()">
+                                            <i class="fas fa-user-friends"></i> Find Referral
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="job-card">
+                                    <div class="job-header">
+                                        <div class="company-logo">
+                                            <img src="https://via.placeholder.com/50" alt="Company">
+                                        </div>
+                                        <div class="job-info">
+                                            <h4>Lead Developer</h4>
+                                            <p>StartupXYZ • New York, NY</p>
+                                            <span class="job-type">Full-time • On-site</span>
+                                        </div>
+                                        <div class="match-score">
+                                            <span class="score">82% Match</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-details">
+                                        <p>$110k - $140k • Posted 1 week ago</p>
+                                        <div class="job-tags">
+                                            <span class="tag">Vue.js</span>
+                                            <span class="tag">Python</span>
+                                            <span class="tag">Docker</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="job-actions">
+                                        <button class="btn-primary" onclick="quickApply()">Quick Apply</button>
+                                        <button class="btn-secondary" onclick="saveJob()">
+                                            <i class="far fa-bookmark"></i>
+                                        </button>
+                                        <button class="btn-secondary" onclick="findReferral()">
+                                            <i class="fas fa-user-friends"></i> Find Referral
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Career Counseling Tab -->
+                <div id="counselingTab" class="tab-content">
+                    <div class="tab-header">
+                        <h3>Career Counseling</h3>
+                        <p>Get personalized guidance from industry experts</p>
+                    </div>
+                    
+                    <div class="counseling-dashboard">
+                        <div class="counseling-stats">
+                            <div class="stat-card">
+                                <h4>3</h4>
+                                <p>Sessions Completed</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>1</h4>
+                                <p>Upcoming Sessions</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>4.8</h4>
+                                <p>Average Rating</p>
+                            </div>
+                        </div>
+                        
+                        <div class="counselor-grid">
+                            <h4>Available Counselors</h4>
+                            <div class="counselors">
+                                <div class="counselor-card">
+                                    <div class="counselor-avatar">
+                                        <img src="https://via.placeholder.com/80" alt="Sarah Johnson">
+                                    </div>
+                                    <div class="counselor-info">
+                                        <h5>Sarah Johnson</h5>
+                                        <p>Tech Career Specialist</p>
+                                        <div class="counselor-rating">
+                                            <span class="stars">★★★★★</span>
+                                            <span>(4.9)</span>
+                                        </div>
+                                        <div class="counselor-expertise">
+                                            <span class="tag">Software Engineering</span>
+                                            <span class="tag">Career Transition</span>
+                                        </div>
+                                        <p class="counselor-bio">15+ years in tech, specializing in senior-level transitions...</p>
+                                    </div>
+                                    <div class="counselor-actions">
+                                        <button class="btn-primary" onclick="bookSession('sarah')">Book Session</button>
+                                        <p class="availability">Next: Today 3:00 PM</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="counselor-card">
+                                    <div class="counselor-avatar">
+                                        <img src="https://via.placeholder.com/80" alt="Michael Chen">
+                                    </div>
+                                    <div class="counselor-info">
+                                        <h5>Michael Chen</h5>
+                                        <p>Product & Strategy Expert</p>
+                                        <div class="counselor-rating">
+                                            <span class="stars">★★★★★</span>
+                                            <span>(4.8)</span>
+                                        </div>
+                                        <div class="counselor-expertise">
+                                            <span class="tag">Product Management</span>
+                                            <span class="tag">Leadership</span>
+                                        </div>
+                                        <p class="counselor-bio">Former VP of Product at Fortune 500 companies...</p>
+                                    </div>
+                                    <div class="counselor-actions">
+                                        <button class="btn-primary" onclick="bookSession('michael')">Book Session</button>
+                                        <p class="availability">Next: Tomorrow 10:00 AM</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="counselor-card">
+                                    <div class="counselor-avatar">
+                                        <img src="https://via.placeholder.com/80" alt="Lisa Rodriguez">
+                                    </div>
+                                    <div class="counselor-info">
+                                        <h5>Lisa Rodriguez</h5>
+                                        <p>Executive Coach</p>
+                                        <div class="counselor-rating">
+                                            <span class="stars">★★★★★</span>
+                                            <span>(4.9)</span>
+                                        </div>
+                                        <div class="counselor-expertise">
+                                            <span class="tag">Executive Coaching</span>
+                                            <span class="tag">Negotiation</span>
+                                        </div>
+                                        <p class="counselor-bio">20+ years coaching C-level executives...</p>
+                                    </div>
+                                    <div class="counselor-actions">
+                                        <button class="btn-primary" onclick="bookSession('lisa')">Book Session</button>
+                                        <p class="availability">Next: Friday 2:00 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="upcoming-sessions">
+                            <h4>Upcoming Sessions</h4>
+                            <div class="session-card">
+                                <div class="session-info">
+                                    <h5>Career Strategy Session</h5>
+                                    <p>with Sarah Johnson</p>
+                                    <div class="session-details">
+                                        <span><i class="fas fa-calendar"></i> Tomorrow, March 15</span>
+                                        <span><i class="fas fa-clock"></i> 2:00 PM - 3:00 PM</span>
+                                        <span><i class="fas fa-video"></i> Video Call</span>
+                                    </div>
+                                </div>
+                                <div class="session-actions">
+                                    <button class="btn-primary">Join Session</button>
+                                    <button class="btn-secondary">Reschedule</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mock Interviews Tab -->
+                <div id="interviewsTab" class="tab-content">
+                    <div class="tab-header">
+                        <h3>Mock Interviews</h3>
+                        <p>Practice with industry experts and get detailed feedback</p>
+                    </div>
+                    
+                    <div class="interview-dashboard">
+                        <div class="interview-stats">
+                            <div class="stat-card">
+                                <h4>5</h4>
+                                <p>Interviews Completed</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>4.2</h4>
+                                <p>Average Score</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>85%</h4>
+                                <p>Improvement Rate</p>
+                            </div>
+                        </div>
+                        
+                        <div class="interview-types">
+                            <h4>Interview Types</h4>
+                            <div class="interview-grid">
+                                <div class="interview-type-card">
+                                    <i class="fas fa-comments"></i>
+                                    <h5>Behavioral Interview</h5>
+                                    <p>STAR method, leadership scenarios, culture fit</p>
+                                    <button class="btn-primary" onclick="bookInterview('behavioral')">Book Session</button>
+                                </div>
+                                
+                                <div class="interview-type-card">
+                                    <i class="fas fa-code"></i>
+                                    <h5>Technical Interview</h5>
+                                    <p>Coding challenges, system design, algorithms</p>
+                                    <button class="btn-primary" onclick="bookInterview('technical')">Book Session</button>
+                                </div>
+                                
+                                <div class="interview-type-card">
+                                    <i class="fas fa-users"></i>
+                                    <h5>Panel Interview</h5>
+                                    <p>Multiple interviewers, cross-functional scenarios</p>
+                                    <button class="btn-primary" onclick="bookInterview('panel')">Book Session</button>
+                                </div>
+                                
+                                <div class="interview-type-card">
+                                    <i class="fas fa-presentation"></i>
+                                    <h5>Presentation</h5>
+                                    <p>Case studies, project presentations, demos</p>
+                                    <button class="btn-primary" onclick="bookInterview('presentation')">Book Session</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="recent-interviews">
+                            <h4>Recent Interviews & Feedback</h4>
+                            <div class="interview-history">
+                                <div class="interview-record">
+                                    <div class="interview-header">
+                                        <h5>Technical Interview - Software Engineer</h5>
+                                        <span class="score">Score: 4.2/5</span>
+                                    </div>
+                                    <div class="interview-details">
+                                        <p>Interviewer: David Kim • March 10, 2024</p>
+                                        <div class="feedback-summary">
+                                            <div class="feedback-item good">
+                                                <i class="fas fa-check"></i>
+                                                <span>Strong problem-solving approach</span>
+                                            </div>
+                                            <div class="feedback-item good">
+                                                <i class="fas fa-check"></i>
+                                                <span>Clear communication of thought process</span>
+                                            </div>
+                                            <div class="feedback-item improve">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>Could improve time complexity analysis</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn-secondary" onclick="viewRecording()">
+                                            <i class="fas fa-play"></i> View Recording
+                                        </button>
+                                        <button class="btn-secondary" onclick="downloadFeedback()">
+                                            <i class="fas fa-download"></i> Download Report
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="interview-record">
+                                    <div class="interview-header">
+                                        <h5>Behavioral Interview - Product Manager</h5>
+                                        <span class="score">Score: 3.8/5</span>
+                                    </div>
+                                    <div class="interview-details">
+                                        <p>Interviewer: Jennifer Lee • March 8, 2024</p>
+                                        <div class="feedback-summary">
+                                            <div class="feedback-item good">
+                                                <i class="fas fa-check"></i>
+                                                <span>Excellent STAR method usage</span>
+                                            </div>
+                                            <div class="feedback-item improve">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>Could provide more quantified results</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="interview-actions">
+                                        <button class="btn-secondary" onclick="viewRecording()">
+                                            <i class="fas fa-play"></i> View Recording
+                                        </button>
+                                        <button class="btn-secondary" onclick="downloadFeedback()">
+                                            <i class="fas fa-download"></i> Download Report
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Digital Presence Tab -->
+                <div id="digitalTab" class="tab-content">
+                    <div class="tab-header">
+                        <h3>Digital Presence Optimization</h3>
+                        <p>Enhance your professional brand across all platforms</p>
+                    </div>
+                    
+                    <div class="digital-dashboard">
+                        <div class="presence-score">
+                            <div class="score-card">
+                                <h4>Digital Presence Score</h4>
+                                <div class="score-circle large">
+                                    <span class="score">72/100</span>
+                                </div>
+                                <p>Good - Room for improvement</p>
+                            </div>
+                        </div>
+                        
+                        <div class="platform-optimization">
+                            <h4>Platform Optimization</h4>
+                            <div class="platform-grid">
+                                <div class="platform-card">
+                                    <div class="platform-header">
+                                        <i class="fab fa-linkedin"></i>
+                                        <h5>LinkedIn Profile</h5>
+                                        <span class="status in-progress">In Progress</span>
+                                    </div>
+                                    <div class="optimization-checklist">
+                                        <div class="checklist-item completed">
+                                            <i class="fas fa-check"></i>
+                                            <span>Professional headshot</span>
+                                        </div>
+                                        <div class="checklist-item completed">
+                                            <i class="fas fa-check"></i>
+                                            <span>Compelling headline</span>
+                                        </div>
+                                        <div class="checklist-item in-progress">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Optimized summary</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Skills & endorsements</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Recommendations</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-primary" onclick="optimizeLinkedIn()">Optimize Now</button>
+                                </div>
+                                
+                                <div class="platform-card">
+                                    <div class="platform-header">
+                                        <i class="fab fa-github"></i>
+                                        <h5>GitHub Profile</h5>
+                                        <span class="status pending">Not Started</span>
+                                    </div>
+                                    <div class="optimization-checklist">
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Profile README</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Pinned repositories</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Project documentation</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Contribution activity</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-primary" onclick="optimizeGitHub()">Get Started</button>
+                                </div>
+                                
+                                <div class="platform-card">
+                                    <div class="platform-header">
+                                        <i class="fas fa-globe"></i>
+                                        <h5>Personal Website</h5>
+                                        <span class="status pending">Not Started</span>
+                                    </div>
+                                    <div class="optimization-checklist">
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Portfolio website</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Professional blog</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>SEO optimization</span>
+                                        </div>
+                                        <div class="checklist-item pending">
+                                            <i class="far fa-circle"></i>
+                                            <span>Contact information</span>
+                                        </div>
+                                    </div>
+                                    <button class="btn-primary" onclick="createWebsite()">Create Website</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="content-creation">
+                            <h4>Content Creation</h4>
+                            <div class="content-tools">
+                                <div class="tool-card">
+                                    <h5>AI Content Generator</h5>
+                                    <p>Create engaging posts about your industry and expertise</p>
+                                    <div class="content-options">
+                                        <button class="content-btn" onclick="generateContent('linkedin-post')">
+                                            <i class="fab fa-linkedin"></i> LinkedIn Post
+                                        </button>
+                                        <button class="content-btn" onclick="generateContent('blog-article')">
+                                            <i class="fas fa-edit"></i> Blog Article
+                                        </button>
+                                        <button class="content-btn" onclick="generateContent('industry-insight')">
+                                            <i class="fas fa-lightbulb"></i> Industry Insight
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-calendar">
+                                    <h5>Content Calendar</h5>
+                                    <div class="calendar-grid">
+                                        <div class="calendar-day">
+                                            <span class="day">Mon</span>
+                                            <div class="content-scheduled">
+                                                <span>LinkedIn Post</span>
+                                            </div>
+                                        </div>
+                                        <div class="calendar-day">
+                                            <span class="day">Wed</span>
+                                            <div class="content-scheduled">
+                                                <span>Blog Article</span>
+                                            </div>
+                                        </div>
+                                        <div class="calendar-day">
+                                            <span class="day">Fri</span>
+                                            <div class="content-empty">
+                                                <span>+</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button class="btn-secondary" onclick="viewFullCalendar()">View Full Calendar</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="engagement-tools">
+                            <h4>Engagement & Outreach</h4>
+                            <div class="engagement-grid">
+                                <div class="engagement-card">
+                                    <h5>Network Outreach</h5>
+                                    <p>AI-generated personalized messages for networking</p>
+                                    <div class="outreach-stats">
+                                        <span>12 Messages Sent</span>
+                                        <span>67% Response Rate</span>
+                                    </div>
+                                    <button class="btn-primary" onclick="createOutreach()">Create Message</button>
+                                </div>
+                                
+                                <div class="engagement-card">
+                                    <h5>Follow-up Sequences</h5>
+                                    <p>Automated follow-ups for job applications and networking</p>
+                                    <div class="sequence-stats">
+                                        <span>5 Active Sequences</span>
+                                        <span>23 Scheduled</span>
+                                    </div>
+                                    <button class="btn-primary" onclick="manageSequences()">Manage Sequences</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modals and overlays will be added here -->
+    <div id="modalOverlay" class="modal-overlay" onclick="closeModal()"></div>
+    
+    <!-- Quick Apply Modal -->
+    <div id="quickApplyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Quick Apply - Senior Full Stack Engineer</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="apply-form">
+                    <div class="form-group">
+                        <label>Select Resume Version</label>
+                        <select class="form-select">
+                            <option>Software Engineer - ATS Optimized</option>
+                            <option>Full Stack Developer - Creative</option>
+                            <option>Senior Engineer - Leadership Focus</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Cover Letter</label>
+                        <textarea class="form-textarea" placeholder="AI-generated cover letter will appear here...">Dear Hiring Manager,
+
+I am excited to apply for the Senior Full Stack Engineer position at TechCorp Inc. With over 8 years of experience in full-stack development and a proven track record of leading high-impact projects, I am confident I can contribute significantly to your team.
+
+In my previous role at InnovateTech, I led the development of a microservices architecture that improved system performance by 40% and reduced deployment time by 60%. My expertise in React, Node.js, and AWS aligns perfectly with your requirements.
+
+I am particularly drawn to TechCorp's commitment to innovation and would love to discuss how my experience can help drive your technical initiatives forward.
+
+Best regards,
+John Doe</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" checked> Generate follow-up sequence
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeModal()">Cancel</button>
+                <button class="btn-primary" onclick="submitApplication()">Submit Application</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
