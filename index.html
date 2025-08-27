@@ -7,6 +7,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="resume-builder-styles.css">
 </head>
 <body>
     <!-- Login Screen -->
@@ -195,10 +196,530 @@
                 <div id="resumeTab" class="tab-content">
                     <div class="tab-header">
                         <h3>AI Resume Builder</h3>
-                        <p>Create ATS-friendly resumes tailored to your target roles</p>
+                        <p>Upload, analyze, and optimize your resume with AI-powered tools</p>
+                    </div>
+
+                    <!-- Resume Upload Section -->
+                    <div class="resume-upload-section" id="uploadSection">
+                        <div class="upload-container">
+                            <div class="upload-box" id="uploadBox">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h4>Upload Your Resume</h4>
+                                <p>Drag and drop your PDF or Word document here, or click to browse</p>
+                                <input type="file" id="resumeFileUpload" accept=".pdf,.doc,.docx" style="display: none;">
+                                <button class="btn-primary" onclick="document.getElementById('resumeFileUpload').click()">
+                                    <i class="fas fa-upload"></i> Choose File
+                                </button>
+                                <div class="supported-formats">
+                                    <span>Supported formats: PDF, DOC, DOCX</span>
+                                </div>
+                                <div style="margin-top: 1rem;">
+                                    <button class="btn-secondary" onclick="showEnhancedBuilder()">
+                                        <i class="fas fa-eye"></i> Preview Enhanced Builder
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <!-- Parsing Progress -->
+                            <div class="parsing-progress" id="parsingProgress" style="display: none;">
+                                <div class="progress-indicator">
+                                    <div class="spinner"></div>
+                                    <span>Analyzing your resume...</span>
+                                </div>
+                                <div class="parsing-steps">
+                                    <div class="step completed">
+                                        <i class="fas fa-check"></i> File uploaded
+                                    </div>
+                                    <div class="step active">
+                                        <i class="fas fa-cog fa-spin"></i> Extracting text
+                                    </div>
+                                    <div class="step">
+                                        <i class="fas fa-clock"></i> Analyzing sections
+                                    </div>
+                                    <div class="step">
+                                        <i class="fas fa-clock"></i> Generating score
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enhanced Resume Builder Interface -->
+                    <div class="resume-builder-main" id="resumeBuilderMain" style="display: none;">
+                        <div class="builder-layout">
+                            <!-- Left Panel: Editor -->
+                            <div class="resume-editor-panel">
+                                <div class="editor-header">
+                                    <div class="editor-tabs">
+                                        <button class="editor-tab active" data-tab="content">
+                                            <i class="fas fa-edit"></i> Edit Content
+                                        </button>
+                                        <button class="editor-tab" data-tab="templates">
+                                            <i class="fas fa-palette"></i> Templates
+                                        </button>
+                                        <button class="editor-tab" data-tab="ai">
+                                            <i class="fas fa-magic"></i> AI Tools
+                                        </button>
+                                    </div>
+                                    <div class="editor-actions">
+                                        <button class="btn-secondary" onclick="autoSave()">
+                                            <i class="fas fa-save"></i> Auto-saved
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Content Editor Tab -->
+                                <div class="editor-content active" id="contentEditor">
+                                    <div class="resume-form">
+                                        <!-- Contact Information Section -->
+                                        <div class="form-section">
+                                            <h4>
+                                                Contact Information
+                                                <button class="ai-improve-btn" onclick="improveSection('contact')">
+                                                    <i class="fas fa-magic"></i> AI Improve
+                                                </button>
+                                            </h4>
+                                            <div class="form-row">
+                                                <input type="text" id="fullName" placeholder="Full Name" value="John Doe">
+                                                <input type="text" id="title" placeholder="Professional Title" value="Senior Software Engineer">
+                                            </div>
+                                            <div class="form-row">
+                                                <input type="email" id="email" placeholder="Email Address" value="john.doe@email.com">
+                                                <input type="tel" id="phone" placeholder="Phone Number" value="+1 (555) 123-4567">
+                                            </div>
+                                            <div class="form-row">
+                                                <input type="text" id="location" placeholder="Location" value="San Francisco, CA">
+                                                <input type="url" id="linkedin" placeholder="LinkedIn Profile" value="linkedin.com/in/johndoe">
+                                            </div>
+                                        </div>
+
+                                        <!-- Professional Summary Section -->
+                                        <div class="form-section">
+                                            <h4>
+                                                Professional Summary
+                                                <button class="ai-improve-btn" onclick="improveSection('summary')">
+                                                    <i class="fas fa-magic"></i> AI Improve
+                                                </button>
+                                            </h4>
+                                            <textarea id="summary" placeholder="Write a compelling professional summary..." rows="4">Experienced software engineer with 8+ years of full-stack development expertise in building scalable web applications and leading cross-functional teams.</textarea>
+                                            <div class="keyword-suggestions" id="summaryKeywords"></div>
+                                        </div>
+
+                                        <!-- Experience Section -->
+                                        <div class="form-section">
+                                            <h4>
+                                                Work Experience
+                                                <button class="section-btn" onclick="addExperience()">
+                                                    <i class="fas fa-plus"></i> Add Experience
+                                                </button>
+                                            </h4>
+                                            <div id="experienceContainer">
+                                                <div class="experience-item-form">
+                                                    <div class="form-row">
+                                                        <input type="text" placeholder="Job Title" value="Senior Software Engineer">
+                                                        <input type="text" placeholder="Company Name" value="TechCorp Inc.">
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <input type="text" placeholder="Start Date" value="Jan 2020">
+                                                        <input type="text" placeholder="End Date" value="Present">
+                                                        <input type="text" placeholder="Location" value="San Francisco, CA">
+                                                    </div>
+                                                    <div class="bullet-points">
+                                                        <div class="bullet-item">
+                                                            <textarea placeholder="Describe your achievement...">Led development of microservices architecture that improved system performance by 40%</textarea>
+                                                            <button class="ai-bullet-btn" onclick="enhanceBullet(this)">
+                                                                <i class="fas fa-magic"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div class="bullet-item">
+                                                            <textarea placeholder="Describe your achievement...">Managed cross-functional team of 6 developers and reduced deployment time by 60%</textarea>
+                                                            <button class="ai-bullet-btn" onclick="enhanceBullet(this)">
+                                                                <i class="fas fa-magic"></i>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <button class="add-bullet-btn" onclick="addBulletPoint(this)">
+                                                        <i class="fas fa-plus"></i> Add Achievement
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Education Section -->
+                                        <div class="form-section">
+                                            <h4>
+                                                Education
+                                                <button class="section-btn" onclick="addEducation()">
+                                                    <i class="fas fa-plus"></i> Add Education
+                                                </button>
+                                            </h4>
+                                            <div id="educationContainer">
+                                                <div class="education-item-form">
+                                                    <div class="form-row">
+                                                        <input type="text" placeholder="Degree" value="Bachelor of Science in Computer Science">
+                                                        <input type="text" placeholder="School/University" value="Stanford University">
+                                                    </div>
+                                                    <div class="form-row">
+                                                        <input type="text" placeholder="Graduation Year" value="2016">
+                                                        <input type="text" placeholder="GPA (optional)" value="3.8">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Skills Section -->
+                                        <div class="form-section">
+                                            <h4>
+                                                Skills
+                                                <button class="ai-improve-btn" onclick="suggestSkills()">
+                                                    <i class="fas fa-magic"></i> Suggest Skills
+                                                </button>
+                                            </h4>
+                                            <div class="skills-input">
+                                                <input type="text" id="skillsInput" placeholder="Type a skill and press Enter">
+                                            </div>
+                                            <div class="skills-container" id="skillsContainer">
+                                                <span class="skill-tag">JavaScript <i class="fas fa-times" onclick="removeSkill(this)"></i></span>
+                                                <span class="skill-tag">React <i class="fas fa-times" onclick="removeSkill(this)"></i></span>
+                                                <span class="skill-tag">Node.js <i class="fas fa-times" onclick="removeSkill(this)"></i></span>
+                                                <span class="skill-tag">AWS <i class="fas fa-times" onclick="removeSkill(this)"></i></span>
+                                                <span class="skill-tag">Python <i class="fas fa-times" onclick="removeSkill(this)"></i></span>
+                                            </div>
+                                            <div class="suggested-skills">
+                                                <span class="suggestion-label">Suggested:</span>
+                                                <span class="skill-suggestion" onclick="addSuggestedSkill(this)">TypeScript</span>
+                                                <span class="skill-suggestion" onclick="addSuggestedSkill(this)">Docker</span>
+                                                <span class="skill-suggestion" onclick="addSuggestedSkill(this)">Kubernetes</span>
+                                                <span class="skill-suggestion" onclick="addSuggestedSkill(this)">GraphQL</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Templates Editor Tab -->
+                                <div class="editor-content" id="templatesEditor">
+                                    <div class="templates-grid">
+                                        <div class="template-card active" data-template="professional">
+                                            <div class="template-preview">
+                                                <div class="template-lines">
+                                                    <div class="line header"></div>
+                                                    <div class="line thin"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line short"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line accent"></div>
+                                                    <div class="line"></div>
+                                                </div>
+                                            </div>
+                                            <h5>Professional</h5>
+                                            <p>Clean, traditional format perfect for corporate roles</p>
+                                            <div class="ats-badge">ATS Friendly</div>
+                                        </div>
+
+                                        <div class="template-card" data-template="modern">
+                                            <div class="template-preview">
+                                                <div class="template-lines">
+                                                    <div class="line bold"></div>
+                                                    <div class="line accent"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line accent thin"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line short"></div>
+                                                </div>
+                                            </div>
+                                            <h5>Modern</h5>
+                                            <p>Contemporary design for tech and startup environments</p>
+                                            <div class="ats-badge">ATS Friendly</div>
+                                        </div>
+
+                                        <div class="template-card" data-template="executive">
+                                            <div class="template-preview">
+                                                <div class="template-lines">
+                                                    <div class="line header"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line accent"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line short"></div>
+                                                </div>
+                                            </div>
+                                            <h5>Executive</h5>
+                                            <p>Sophisticated layout for senior leadership positions</p>
+                                            <div class="ats-badge">ATS Friendly</div>
+                                        </div>
+
+                                        <div class="template-card" data-template="creative">
+                                            <div class="template-preview">
+                                                <div class="template-lines">
+                                                    <div class="line bold"></div>
+                                                    <div class="line creative-accent"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line creative-accent thin"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line short"></div>
+                                                </div>
+                                            </div>
+                                            <h5>Creative</h5>
+                                            <p>Stylish design for creative and design roles</p>
+                                            <div class="ats-badge">ATS Friendly</div>
+                                        </div>
+
+                                        <div class="template-card" data-template="technical">
+                                            <div class="template-preview">
+                                                <div class="template-lines">
+                                                    <div class="line header"></div>
+                                                    <div class="line tech-accent"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line tech-accent thin"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                </div>
+                                            </div>
+                                            <h5>Technical</h5>
+                                            <p>Engineer-focused layout with clear skill emphasis</p>
+                                            <div class="ats-badge">ATS Friendly</div>
+                                        </div>
+
+                                        <div class="template-card" data-template="minimal">
+                                            <div class="template-preview">
+                                                <div class="template-lines">
+                                                    <div class="line bold"></div>
+                                                    <div class="line thin"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line"></div>
+                                                    <div class="line short"></div>
+                                                    <div class="line"></div>
+                                                </div>
+                                            </div>
+                                            <h5>Minimal</h5>
+                                            <p>Simple, clean design that focuses on content</p>
+                                            <div class="ats-badge">ATS Friendly</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- AI Tools Editor Tab -->
+                                <div class="editor-content" id="aiToolsEditor">
+                                    <div class="ai-tools-grid">
+                                        <div class="ai-tool-card">
+                                            <div class="tool-header">
+                                                <i class="fas fa-search"></i>
+                                                <h5>Job Description Analyzer</h5>
+                                            </div>
+                                            <p>Paste a job description to find missing keywords and optimize your resume</p>
+                                            <textarea id="jobDescription" placeholder="Paste the job description here..."></textarea>
+                                            <button class="btn-primary" onclick="analyzeJobDescription()">
+                                                <i class="fas fa-chart-line"></i> Analyze & Suggest Keywords
+                                            </button>
+                                            <div class="analysis-results" id="jobAnalysisResults"></div>
+                                        </div>
+
+                                        <div class="ai-tool-card">
+                                            <div class="tool-header">
+                                                <i class="fas fa-user-edit"></i>
+                                                <h5>AI Summary Generator</h5>
+                                            </div>
+                                            <p>Generate a professional summary based on your experience</p>
+                                            <select id="summaryTone">
+                                                <option value="Professional">Professional</option>
+                                                <option value="Dynamic">Dynamic</option>
+                                                <option value="Results-focused">Results-focused</option>
+                                                <option value="Leadership-focused">Leadership-focused</option>
+                                            </select>
+                                            <button class="btn-primary" onclick="generateAISummary()">
+                                                <i class="fas fa-magic"></i> Generate Summary
+                                            </button>
+                                        </div>
+
+                                        <div class="ai-tool-card">
+                                            <div class="tool-header">
+                                                <i class="fas fa-edit"></i>
+                                                <h5>Bullet Point Enhancer</h5>
+                                            </div>
+                                            <p>Transform weak bullet points into powerful achievement statements</p>
+                                            <textarea id="weakBullet" placeholder="Enter a bullet point to enhance..."></textarea>
+                                            <button class="btn-primary" onclick="enhanceBulletPoint()">
+                                                <i class="fas fa-arrow-up"></i> Enhance This Point
+                                            </button>
+                                            <div class="enhanced-result" id="enhancedBullet"></div>
+                                        </div>
+
+                                        <div class="ai-tool-card">
+                                            <div class="tool-header">
+                                                <i class="fas fa-file-alt"></i>
+                                                <h5>Smart Cover Letter</h5>
+                                            </div>
+                                            <p>Generate a personalized cover letter for any job</p>
+                                            <input type="text" id="coverCompany" placeholder="Company Name">
+                                            <input type="text" id="coverPosition" placeholder="Position Title">
+                                            <button class="btn-primary" onclick="generateSmartCoverLetter()">
+                                                <i class="fas fa-magic"></i> Generate Cover Letter
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <!-- Right Panel: Live Preview & Analysis -->
+                                <div class="resume-preview-panel">
+                                    <!-- ATS Score Section -->
+                                    <div class="ats-score-section">
+                                        <div class="score-header">
+                                            <h4>ATS Score</h4>
+                                            <button class="btn-primary score-btn" onclick="checkATSScore()">
+                                                <i class="fas fa-search"></i> Check ATS Score
+                                            </button>
+                                        </div>
+                                        
+                                        <div class="score-display" id="scoreDisplay">
+                                            <div class="score-circle-large">
+                                                <svg viewBox="0 0 100 100">
+                                                    <circle cx="50" cy="50" r="45" stroke="#e2e8f0" stroke-width="8" fill="none"/>
+                                                    <circle cx="50" cy="50" r="45" stroke="#48bb78" stroke-width="8" fill="none" 
+                                                            stroke-dasharray="283" stroke-dashoffset="51" transform="rotate(-90 50 50)"/>
+                                                </svg>
+                                                <div class="score-text">
+                                                    <span class="score-number">87</span>
+                                                    <span class="score-label">/100</span>
+                                                </div>
+                                            </div>
+                                            <div class="score-label-text">Excellent</div>
+                                        </div>
+
+                                        <div class="score-breakdown">
+                                            <div class="score-item good">
+                                                <i class="fas fa-check-circle"></i>
+                                                <span>ATS-friendly format</span>
+                                            </div>
+                                            <div class="score-item good">
+                                                <i class="fas fa-check-circle"></i>
+                                                <span>Strong action verbs</span>
+                                            </div>
+                                            <div class="score-item warning">
+                                                <i class="fas fa-exclamation-triangle"></i>
+                                                <span>Missing 3 key skills</span>
+                                            </div>
+                                            <div class="score-item error">
+                                                <i class="fas fa-times-circle"></i>
+                                                <span>Summary too short</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="score-details">
+                                            <button class="btn-secondary" onclick="showScoreDetails()">
+                                                <i class="fas fa-chart-bar"></i> View Detailed Analysis
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                <!-- Live Resume Preview -->
+                                <div class="resume-preview-container">
+                                    <div class="preview-header">
+                                        <h4>Live Preview</h4>
+                                        <div class="preview-controls">
+                                            <button class="zoom-btn" onclick="zoomOut()">
+                                                <i class="fas fa-search-minus"></i>
+                                            </button>
+                                            <span class="zoom-level">100%</span>
+                                            <button class="zoom-btn" onclick="zoomIn()">
+                                                <i class="fas fa-search-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="resume-preview" id="resumePreview">
+                                        <div class="resume-page professional-template" id="resumePage">
+                                            <div class="resume-header">
+                                                <h1>John Doe</h1>
+                                                <p class="title">Senior Software Engineer</p>
+                                                <div class="contact-info">
+                                                    <span>john.doe@email.com</span>
+                                                    <span>+1 (555) 123-4567</span>
+                                                    <span>San Francisco, CA</span>
+                                                    <span>linkedin.com/in/johndoe</span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="resume-section">
+                                                <h3>Professional Summary</h3>
+                                                <p>Experienced software engineer with 8+ years of full-stack development expertise in building scalable web applications and leading cross-functional teams.</p>
+                                            </div>
+                                            
+                                            <div class="resume-section">
+                                                <h3>Experience</h3>
+                                                <div class="experience-item">
+                                                    <div class="job-header">
+                                                        <h4>Senior Software Engineer</h4>
+                                                        <span class="date">Jan 2020 - Present</span>
+                                                    </div>
+                                                    <p class="company">TechCorp Inc. • San Francisco, CA</p>
+                                                    <ul>
+                                                        <li>Led development of microservices architecture that improved system performance by 40%</li>
+                                                        <li>Managed cross-functional team of 6 developers and reduced deployment time by 60%</li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="resume-section">
+                                                <h3>Education</h3>
+                                                <div class="education-item">
+                                                    <div class="job-header">
+                                                        <h4>Bachelor of Science in Computer Science</h4>
+                                                        <span class="date">2016</span>
+                                                    </div>
+                                                    <p class="company">Stanford University • GPA: 3.8</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="resume-section">
+                                                <h3>Skills</h3>
+                                                <div class="skills-list">
+                                                    <span>JavaScript</span>
+                                                    <span>React</span>
+                                                    <span>Node.js</span>
+                                                    <span>AWS</span>
+                                                    <span>Python</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Export Options -->
+                                    <div class="export-section">
+                                        <h4>Export Options</h4>
+                                        <div class="export-buttons">
+                                            <button class="export-btn pdf" onclick="downloadPDF()">
+                                                <i class="fas fa-file-pdf"></i>
+                                                <span>Download PDF</span>
+                                            </button>
+                                            <button class="export-btn word" onclick="downloadWord()">
+                                                <i class="fas fa-file-word"></i>
+                                                <span>Download Word</span>
+                                            </button>
+                                            <button class="export-btn text" onclick="copyAsText()">
+                                                <i class="fas fa-file-alt"></i>
+                                                <span>Copy as Text</span>
+                                            </button>
+                                            <button class="export-btn link" onclick="createShareableLink()">
+                                                <i class="fas fa-link"></i>
+                                                <span>Shareable Link</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="resume-builder">
+                    <div class="resume-builder enhanced" style="display: none;">
                         <div class="resume-sidebar">
                             <div class="resume-score">
                                 <h4>Resume Score</h4>
@@ -905,6 +1426,97 @@
     <!-- Modals and overlays will be added here -->
     <div id="modalOverlay" class="modal-overlay" onclick="closeModal()"></div>
     
+    <!-- Cover Letter Modal -->
+    <div id="coverLetterModal" class="modal">
+        <div class="modal-content" style="max-width: 700px;">
+            <div class="modal-header">
+                <h3>Generated Cover Letter</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="coverLetterContent" style="white-space: pre-line; line-height: 1.6; font-family: 'Times New Roman', serif; font-size: 14px; padding: 2rem; background: white; border: 1px solid #e2e8f0; border-radius: 8px;">
+                    <!-- Cover letter content will be inserted here -->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="copyCoverLetter()">
+                    <i class="fas fa-copy"></i> Copy to Clipboard
+                </button>
+                <button class="btn-primary" onclick="downloadCoverLetter()">
+                    <i class="fas fa-download"></i> Download as PDF
+                </button>
+                <button class="btn-secondary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ATS Score Details Modal -->
+    <div id="atsDetailsModal" class="modal">
+        <div class="modal-content" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3>Detailed ATS Analysis</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="atsDetailsContent">
+                    <div class="analysis-section">
+                        <h4>Format & Structure Analysis</h4>
+                        <div class="analysis-items">
+                            <div class="analysis-item good">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Uses standard resume format</span>
+                                <span class="score">+15 points</span>
+                            </div>
+                            <div class="analysis-item good">
+                                <i class="fas fa-check-circle"></i>
+                                <span>No graphics or complex tables</span>
+                                <span class="score">+5 points</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <h4>Content Quality Analysis</h4>
+                        <div class="analysis-items">
+                            <div class="analysis-item warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                                <span>Professional summary could be longer</span>
+                                <span class="score">Missing 5 points</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="analysis-section">
+                        <h4>Keyword Optimization</h4>
+                        <div class="analysis-items">
+                            <div class="analysis-item good">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Good technical skills coverage</span>
+                                <span class="score">+5 points</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="recommendations">
+                        <h4>Recommendations for Improvement</h4>
+                        <ul>
+                            <li>Add more industry-specific keywords to your summary</li>
+                            <li>Include quantified achievements in bullet points</li>
+                            <li>Consider adding more technical skills relevant to your field</li>
+                            <li>Ensure all contact information is complete and professional</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" onclick="downloadATSReport()">
+                    <i class="fas fa-download"></i> Download Report
+                </button>
+                <button class="btn-secondary" onclick="closeModal()">Close</button>
+            </div>
+        </div>
+    </div>
+    
     <!-- Quick Apply Modal -->
     <div id="quickApplyModal" class="modal">
         <div class="modal-content">
@@ -950,5 +1562,6 @@ John Doe</textarea>
     </div>
 
     <script src="script.js"></script>
+    <script src="resume-builder-js.js"></script>
 </body>
 </html>

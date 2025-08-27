@@ -1,6 +1,8 @@
 # Career Transition Platform - Interactive Mockup
 
-This is a comprehensive interactive mockup of the Career Transition Platform, focusing on the employee-side experience as outlined in the Product Requirement Document (PRD).
+This is a comprehensive interactive mockup of the Career Transition Platform, focusing on the employee-side experience. Features a fully-functional Resume Builder with AI-powered tools, ATS optimization, multiple templates, and professional export options.
+
+**🔗 Repository:** [https://github.com/christopher-git/career-transition-platform.git](https://github.com/christopher-git/career-transition-platform.git)
 
 ## 🚀 Features Implemented
 
