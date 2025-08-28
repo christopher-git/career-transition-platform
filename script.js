@@ -99,6 +99,8 @@ function showDashboard() {
 
 // Tab Management
 function showTab(tabName) {
+    console.log('🎯 showTab called with:', tabName);
+    
     // Update navigation
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
@@ -108,17 +110,24 @@ function showTab(tabName) {
         activeNavItem.classList.add('active');
     }
     
-    // Update content
+    // Update content - use both class and style
     const tabContents = document.querySelectorAll('.tab-content');
-    tabContents.forEach(content => content.classList.remove('active'));
+    tabContents.forEach(content => {
+        content.classList.remove('active');
+        content.style.display = 'none';
+    });
     
     const targetTab = document.getElementById(`${tabName}Tab`);
     if (targetTab) {
         targetTab.classList.add('active');
+        targetTab.style.display = 'block';
         currentTab = tabName;
+        console.log('✅ Tab activated:', tabName);
         
         // Trigger any tab-specific initializations
         onTabChange(tabName);
+    } else {
+        console.error('❌ Tab not found:', `${tabName}Tab`);
     }
 }
 
