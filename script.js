@@ -25,6 +25,18 @@ function initializeApp() {
     // Initialize dynamic content
     updateProgressCircles();
     setupFileUpload();
+    
+    // Debug: Check if all tabs exist
+    console.log('🔍 Checking tab availability...');
+    const expectedTabs = ['progress', 'resume', 'jobs', 'counseling', 'interviews', 'digital'];
+    expectedTabs.forEach(tabName => {
+        const tabElement = document.getElementById(`${tabName}Tab`);
+        if (tabElement) {
+            console.log(`✅ ${tabName}Tab found`);
+        } else {
+            console.error(`❌ ${tabName}Tab missing`);
+        }
+    });
 }
 
 function setupEventListeners() {
@@ -94,7 +106,10 @@ function handleResumeUpload(event) {
 
 function showDashboard() {
     showScreen('dashboard');
-    showTab('progress');
+    // Ensure the progress tab is properly initialized
+    setTimeout(() => {
+        showTab('progress');
+    }, 100);
 }
 
 // Tab Management
@@ -112,9 +127,11 @@ function showTab(tabName) {
     
     // Update content - use both class and style
     const tabContents = document.querySelectorAll('.tab-content');
+    console.log('📋 Found', tabContents.length, 'tab contents');
     tabContents.forEach(content => {
         content.classList.remove('active');
         content.style.display = 'none';
+        console.log('❌ Hidden tab:', content.id);
     });
     
     const targetTab = document.getElementById(`${tabName}Tab`);
@@ -122,12 +139,15 @@ function showTab(tabName) {
         targetTab.classList.add('active');
         targetTab.style.display = 'block';
         currentTab = tabName;
-        console.log('✅ Tab activated:', tabName);
+        console.log('✅ Tab activated:', tabName, 'ID:', targetTab.id);
         
         // Trigger any tab-specific initializations
         onTabChange(tabName);
     } else {
         console.error('❌ Tab not found:', `${tabName}Tab`);
+        // List all available tabs for debugging
+        const allTabs = document.querySelectorAll('.tab-content');
+        console.log('🔍 Available tabs:', Array.from(allTabs).map(tab => tab.id));
     }
 }
 
