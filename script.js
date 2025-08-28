@@ -99,8 +99,6 @@ function showDashboard() {
 
 // Tab Management
 function showTab(tabName) {
-    console.log('showTab called with:', tabName);
-    
     // Update navigation
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
@@ -108,27 +106,19 @@ function showTab(tabName) {
     const activeNavItem = document.querySelector(`[onclick="showTab('${tabName}')"]`);
     if (activeNavItem) {
         activeNavItem.classList.add('active');
-        console.log('Active nav item found and activated');
-    } else {
-        console.log('Active nav item NOT found for:', tabName);
     }
     
     // Update content
     const tabContents = document.querySelectorAll('.tab-content');
     tabContents.forEach(content => content.classList.remove('active'));
-    console.log('Removed active class from all tab contents');
     
     const targetTab = document.getElementById(`${tabName}Tab`);
-    console.log('Target tab element:', targetTab);
     if (targetTab) {
         targetTab.classList.add('active');
         currentTab = tabName;
-        console.log('Added active class to:', `${tabName}Tab`);
         
         // Trigger any tab-specific initializations
         onTabChange(tabName);
-    } else {
-        console.log('Target tab element NOT found for:', `${tabName}Tab`);
     }
 }
 
