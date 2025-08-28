@@ -1621,49 +1621,5 @@ John Doe</textarea>
 
     <script src="script.js"></script>
     <script src="resume-builder-js.js"></script>
-    
-    <!-- TAB FIX -->
-    <script>
-    // Ensure showTab function works properly
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log('🔧 Initializing tab system...');
-        
-        // Make sure the showTab function is available globally
-        if (typeof showTab === 'undefined') {
-            window.showTab = function(tabName) {
-                console.log('🎯 Showing tab:', tabName);
-                
-                // Hide all tab content
-                const tabContents = document.querySelectorAll('.tab-content');
-                tabContents.forEach(content => {
-                    content.style.display = 'none';
-                    content.classList.remove('active');
-                });
-                
-                // Show target tab
-                const targetTab = document.getElementById(`${tabName}Tab`);
-                if (targetTab) {
-                    targetTab.style.display = 'block';
-                    targetTab.classList.add('active');
-                    console.log('✅ Tab shown:', tabName);
-                }
-                
-                // Update navigation
-                const navItems = document.querySelectorAll('.nav-item');
-                navItems.forEach(item => item.classList.remove('active'));
-                
-                const activeNavItem = document.querySelector(`[onclick="showTab('${tabName}')"]`);
-                if (activeNavItem) {
-                    activeNavItem.classList.add('active');
-                }
-            };
-        }
-        
-        // Initialize with progress tab
-        setTimeout(() => {
-            showTab('progress');
-        }, 100);
-    });
-    </script>
 </body>
 </html>
