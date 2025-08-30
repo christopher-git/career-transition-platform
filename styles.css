@@ -292,10 +292,13 @@ body {
 
 .tab-content {
     display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 .tab-content.active {
-    display: block;
+    display: block !important;
+    opacity: 1;
 }
 
 .tab-header {

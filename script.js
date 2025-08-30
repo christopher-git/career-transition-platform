@@ -10,6 +10,21 @@ let userData = {
     digitalPresenceScore: 72
 };
 
+// Debug function to manually test tab switching
+window.testTab = function(tabName) {
+    console.log(`🧪 Testing tab: ${tabName}`);
+    showTab(tabName);
+    
+    // Force show the tab content
+    const targetTab = document.getElementById(`${tabName}Tab`);
+    if (targetTab) {
+        targetTab.style.display = 'block';
+        targetTab.style.opacity = '1';
+        targetTab.classList.add('active');
+        console.log(`✅ Forced ${tabName} tab to be visible`);
+    }
+};
+
 // Initialize the application
 document.addEventListener('DOMContentLoaded', function() {
     initializeApp();
@@ -109,6 +124,16 @@ function showDashboard() {
     // Ensure the progress tab is properly initialized
     setTimeout(() => {
         showTab('progress');
+        
+        // Debug: Temporarily show all tabs to verify content exists
+        console.log('🔍 Debug: Checking if all tab content exists...');
+        const allTabs = document.querySelectorAll('.tab-content');
+        allTabs.forEach((tab, index) => {
+            console.log(`Tab ${index + 1}: ${tab.id} - Content length: ${tab.innerHTML.length} characters`);
+            if (tab.innerHTML.length < 100) {
+                console.warn(`⚠️ ${tab.id} seems to have very little content!`);
+            }
+        });
     }, 100);
 }
 
