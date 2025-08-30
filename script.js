@@ -22,7 +22,21 @@ window.testTab = function(tabName) {
         targetTab.style.opacity = '1';
         targetTab.classList.add('active');
         console.log(`✅ Forced ${tabName} tab to be visible`);
+        console.log(`📄 Content preview:`, targetTab.innerHTML.substring(0, 200) + '...');
     }
+};
+
+// Debug function to show all tabs content
+window.showAllTabs = function() {
+    console.log('🔍 Showing all tabs content for debugging...');
+    const allTabs = document.querySelectorAll('.tab-content');
+    allTabs.forEach(tab => {
+        tab.style.display = 'block';
+        tab.style.opacity = '1';
+        tab.classList.add('active');
+        console.log(`📄 ${tab.id}: ${tab.innerHTML.length} characters`);
+        console.log(`📄 ${tab.id} preview:`, tab.innerHTML.substring(0, 100) + '...');
+    });
 };
 
 // Initialize the application
@@ -156,6 +170,7 @@ function showTab(tabName) {
     tabContents.forEach(content => {
         content.classList.remove('active');
         content.style.display = 'none';
+        content.style.opacity = '0';
         console.log('❌ Hidden tab:', content.id);
     });
     
@@ -163,8 +178,11 @@ function showTab(tabName) {
     if (targetTab) {
         targetTab.classList.add('active');
         targetTab.style.display = 'block';
+        targetTab.style.opacity = '1';
         currentTab = tabName;
         console.log('✅ Tab activated:', tabName, 'ID:', targetTab.id);
+        console.log('✅ Tab display style:', targetTab.style.display);
+        console.log('✅ Tab opacity:', targetTab.style.opacity);
         
         // Trigger any tab-specific initializations
         onTabChange(tabName);
